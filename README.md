@@ -1,5 +1,51 @@
+# DIY
+
+## 修改位置
+
+sub后端末尾不带/
+
+- `public\conf\config.js`
+- `src\views\home`
+
+## 修改后部署
+
+```
+npm install
+npm run build
+```
+
+把生成的dist上传www目录
+
+### nginx 配置
+```
+server {
+    listen 80;
+    server_name example.com;
+
+    root /var/www/http/sub-web/dist;
+    index index.html index.htm;
+
+    error_page 404 /index.html;
+
+    gzip on; #开启gzip压缩
+    gzip_min_length 1k; #设置对数据启用压缩的最少字节数
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 6; #设置数据的压缩等级,等级为1-9，压缩比从小到大
+    gzip_types text/plain text/css text/javascript application/json application/javascript application/x-javascript application/xml; #设置需要压缩的数据格式
+    gzip_vary on;
+
+    location ~* \.(css|js|png|jpg|jpeg|gif|gz|svg|mp4|ogg|ogv|webm|htc|xml|woff)$ {
+        access_log off;
+        add_header Cache-Control "public,max-age=30*24*3600";
+    }
+}
+```
+
+
+
 # subweb
-## 简介
+## 原文简介
 subweb 是基于 subconverter 订阅转换的前端项目,方便用户快速生成各平台的订阅链接.
 
 > *subweb 是我个人入门 vuejs 学习时简单做的一个案例,使用还算方便,开源出来,欢迎各路大佬贡献维护.*
