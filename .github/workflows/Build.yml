@@ -19,11 +19,12 @@ jobs:
       - name: Build
         run: |
           npm install && npm run build
-          cd dist && zip -q -r subweb.zip * && mv subweb.zip ../ && cd ..
+          
+# cd dist && zip -q -r subweb.zip * && mv subweb.zip ../ && cd ..
           
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
           name: subweb.zip
-          path: ./subweb.zip
+          path: dist
 
